@@ -2,6 +2,7 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 
 import Product from "./Product/Product";
+import useStyles from "./styles";
 
 // each product will be an object, having an id name, description, price and image
 const products = [
@@ -20,8 +21,10 @@ const products = [
 ];
 
 const Products = () => {
+  const classes = useStyles();
   return (
-    <main>
+    <main className={classes.content}>
+      <div className={classes.toolbar} />
       <Grid container justify="center" spacing={4}>
         {products.map((product) => (
           // when mapping through i need to have an id for reference, xs and sm is for mobile xs 12 will take up full device width and xm 6 will take up 6 of 12 spaces.
