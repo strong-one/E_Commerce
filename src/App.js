@@ -11,6 +11,7 @@ import { Products, Navbar } from "./components";
 const App = () => {
   // fetch products - set to empty array by default
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState({});
 
   // async process waiting for responce from the call to the list of commerce products
   const fetchProducts = async () => {
@@ -18,15 +19,29 @@ const App = () => {
     // will populate with data response from promise
     setProducts(data);
   };
+  // get cart items
+  const fetchCart = async () => {
+    // get cart and immediately get items
+    setCart(await commerce.cart.retrieve());
+  };
+  // function will add items to cart
+  const handleAddToCart = async (productId, quantity) => {
+    const item = await commerce.cart.add(productId, quantity);
+    // cart after item has been added
+    setCart(item.cart);
+  };
   // will only run on render will call products list and set to state
   useEffect(() => {
     fetchProducts();
+    fetchCart();
   }, []);
+
+  console.log(cart);
 
   return (
     <div>
-      <Navbar />
-      <Products products={products} />
+      <Navbar totalItems={cart.total_items} />
+      <Products products={products} onAddToCart={handleAddToCart} />
     </div>
   );
 };

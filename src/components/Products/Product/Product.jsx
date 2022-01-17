@@ -10,7 +10,7 @@ import {
 import { AddShoppingCart } from "@material-ui/icons";
 import useStyles from "./styles";
 
-const Product = ({ product }) => {
+const Product = ({ product, onAddToCart }) => {
   const classes = useStyles();
 
   console.log(product);
@@ -33,14 +33,18 @@ const Product = ({ product }) => {
         </div>
 
         <Typography
-          // dangerous renders just the description instead of the tag of the HTML
+          // dangerous renders just the description instead of the p tag of the HTML
           dangerouslySetInnerHTML={{ __html: product.description }}
           variant="body2"
           color="textSecondary"
         />
       </CardContent>
       <CardActions disableSpacing className={classes.cardAction}>
-        <IconButton aria-label="Add to Cart">
+        <IconButton
+          aria-label="Add to Cart"
+          // adding items by id and increment by 1
+          onClick={() => onAddToCart(product.id, 1)}
+        >
           <AddShoppingCart />
         </IconButton>
       </CardActions>
