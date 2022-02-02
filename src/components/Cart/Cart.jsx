@@ -3,16 +3,14 @@ import { Container, Typography, Button, Grid } from "@material-ui/core";
 
 import useStyles from "./styles";
 
-function Cart({ cart }) {
+const Cart = ({ cart }) => {
   // decide if cart is empty or not and display differet data depending on what the scenario is
-  const isEmpty = cart.line_items.length === 0;
-  //   const isEmpty = !cart.line_items.length - same as above
 
   const classes = useStyles();
 
   const EmptyCart = () => (
     <Typography variant="subtitle1">
-      You Have no items in your shopping cart, start adding some!
+      You have no items in your shopping cart, start adding some!
     </Typography>
   );
 
@@ -55,6 +53,8 @@ function Cart({ cart }) {
     </>
   );
 
+  if (!cart.line_items) return "Loading...";
+
   return (
     <Container>
       {/* pushes content down so it appears under the navbar */}
@@ -62,9 +62,9 @@ function Cart({ cart }) {
       <Typography className={classes.title} variant="h3">
         Your Shopping Cart
       </Typography>
-      {isEmpty ? <EmptyCart /> : <FilledCart />}
+      {!cart.line_items.length ? <EmptyCart /> : <FilledCart />}
     </Container>
   );
-}
+};
 
 export default Cart;
