@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import { commerce } from "./lib/commerce";
 
 // import all components via deconstruction
-import { Products, Navbar, Cart } from "./components";
+import { Products, Navbar, Cart, Checkout } from "./components";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -76,6 +76,9 @@ const App = () => {
               handleRemoveFromCart={handleRemoveFromCart}
               handleEmptyCart={handleEmptyCart}
             />
+          </Route>
+          <Route exact path="/checkout">
+            <Checkout />
           </Route>
         </Switch>
       </div>
