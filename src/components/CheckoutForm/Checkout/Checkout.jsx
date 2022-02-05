@@ -13,12 +13,21 @@ import {
 } from "@material-ui/core";
 
 import useStyles from "./styles";
+import AddressForm from "../AddressForm";
+import PaymentForm from "../PaymentForm";
+
 // create steps
 const steps = ["Shipping address", "Payment Details "];
 
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
   const classes = useStyles();
+
+  const Confirmation = () => <div>Confirmation</div>;
+
+  // choosing what form to render depending on what step user is on
+  const Form = () => (activeStep === 0 ? <AddressForm /> : <PaymentForm />);
+
   return (
     <>
       <div classsName={classes.toolbar} />
@@ -36,6 +45,8 @@ const Checkout = () => {
               </Step>
             ))}
           </Stepper>
+          {/* if on last step  */}
+          {activeStep === steps.length ? <Confirmation /> : <Form />}
         </Paper>
       </main>
     </>
