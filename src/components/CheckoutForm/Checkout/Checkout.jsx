@@ -30,13 +30,13 @@ const Checkout = () => {
 
   return (
     <>
-      <div classsName={classes.toolbar} />
+      <div className={classes.toolbar} />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography variant="h4" align="center">
             Checkout
           </Typography>
-          {/* stepper, component that mopves as user goes through steps */}
+          {/* stepper, component that moves as user goes through steps */}
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {/* loop through all the steps */}
             {steps.map((step) => (
