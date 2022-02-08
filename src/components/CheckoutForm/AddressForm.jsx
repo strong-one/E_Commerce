@@ -14,20 +14,22 @@ import { commerce } from "../../lib/commerce";
 import FormInput from "./CustomTextField";
 
 const AddressForm = () => {
-  const [shippingCountries, setShippingCountries] = useState([])
-  const [shippingCountry, setShippingCountry] = useState("")
-  const [shippingSubdivisions, setShippingSubdivisions] = useState([])
-  const [shippingSubdivision, setShippingSubdivision] = useState("")
-  const [shippingOptions, setShippingOptions] = useState([])
-  const [shippingOption, setShippingOption] = useState("")
+  const [shippingCountries, setShippingCountries] = useState([]);
+  const [shippingCountry, setShippingCountry] = useState("");
+  const [shippingSubdivisions, setShippingSubdivisions] = useState([]);
+  const [shippingSubdivision, setShippingSubdivision] = useState("");
+  const [shippingOptions, setShippingOptions] = useState([]);
+  const [shippingOption, setShippingOption] = useState("");
 
   const methods = useForm();
 
-    const fetchShippingCountries = async (checkoutTokenId) => {
-      const {countries} = await commerce.services.localeListShippingCountries(checkoutTokenId)
+  const fetchShippingCountries = async (checkoutTokenId) => {
+    const { countries } = await commerce.services.localeListShippingCountries(
+      checkoutTokenId
+    );
 
-      setShippingCountries(countries)
-    }
+    setShippingCountries(countries);
+  };
 
   return (
     <>
@@ -46,7 +48,7 @@ const AddressForm = () => {
 
             {/* loop through values on event fields */}
 
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
                 <InputLabel>Shipping Country</InputLabel>
                 <Select value={} fullWidth onChange={}>
                    
@@ -79,7 +81,7 @@ const AddressForm = () => {
 
                     </MenuItem>
                 </Select>
-            </Grid>
+            </Grid> */}
           </Grid>
         </form>
       </FormProvider>

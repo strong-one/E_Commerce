@@ -7,14 +7,6 @@ const FormInput = ({ name, label, required }) => {
   return (
     <Grid item xs={12} sm={6}>
       {/* controller allows us to use any other input or text field  */}
-      {/* <Controller
-        as={TextField}
-        name={name}
-        control={control}
-        label={label}
-        fullwidth
-        required={required}
-      /> */}
 
       <Controller
         control={control}

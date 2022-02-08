@@ -1,6 +1,6 @@
 // Form to move through as user goes throuth the purchasing process
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Paper,
   Stepper,
@@ -12,6 +12,9 @@ import {
   Button,
 } from "@material-ui/core";
 
+// import api
+import { commerce } from "../../../lib/commerce";
+
 import useStyles from "./styles";
 import AddressForm from "../AddressForm";
 import PaymentForm from "../PaymentForm";
@@ -19,9 +22,26 @@ import PaymentForm from "../PaymentForm";
 // create steps
 const steps = ["Shipping address", "Payment Details "];
 
-const Checkout = () => {
+const Checkout = ({ cart }) => {
   const [activeStep, setActiveStep] = useState(0);
+  const [checkoutToken, setCheckoutToken] = useState(null);
   const classes = useStyles();
+
+  //   checkout tokens
+  useEffect(() => {
+    // when someone enters checkoput process we will generate a checkout token
+    const generateToken = async () => {
+      try {
+        const token = await commerce.checkout.generateToken(cart.id, {
+          type: "cart",
+        });
+        // console.log(token);
+        setCheckoutToken(token);
+      } catch (error) {}
+    };
+
+    generateToken();
+  }, []);
 
   const Confirmation = () => <div>Confirmation</div>;
 
