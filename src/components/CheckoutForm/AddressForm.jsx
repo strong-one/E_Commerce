@@ -23,16 +23,25 @@ const AddressForm = ({ checkoutToken }) => {
 
   const methods = useForm();
 
+  // converting object in to an array of arrays and looping through the data
+  const countries = Object.entries(shippingCountries).map(([code, name]) => ({
+    id: code,
+    label: name,
+  }));
+
   const fetchShippingCountries = async (checkoutTokenId) => {
     const { countries } = await commerce.services.localeListShippingCountries(
       checkoutTokenId
     );
     console.log(countries);
+    // sets countries as an object, need to set to an array
     setShippingCountries(countries);
+    // setting countries as an array and getting first item in the array- keys(abbreviations) an array of [AL, AT, BA] etc...
+    setShippingCountry(Object.keys(countries)[0]);
   };
 
   useEffect(() => {
-    fetchShippingCountries(checkoutToken);
+    fetchShippingCountries(checkoutToken.id);
   }, []);
 
   return (
@@ -52,19 +61,23 @@ const AddressForm = ({ checkoutToken }) => {
 
             {/* loop through values on event fields */}
 
-            {/* <Grid item xs={12} sm={6}>
-                <InputLabel>Shipping Country</InputLabel>
-                <Select value={} fullWidth onChange={}>
-                   
-                    <MenuItem key={} value={}>
-                        Select Me
-
-                    </MenuItem>
-                </Select>
+            <Grid item xs={12} sm={6}>
+              <InputLabel>Shipping Country</InputLabel>
+              <Select
+                value={shippingCountry}
+                fullWidth
+                onChange={(event) => setShippingCountry(event.target.value)}
+              >
+                {/* gives keys and values of objects */}
+                {countries.map((country) => (
+                  <MenuItem key={country.id} value={country.id}>
+                    {country.label}
+                  </MenuItem>
+                ))}
+              </Select>
             </Grid>
 
-
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
                 <InputLabel>Shipping Subdivision</InputLabel>
                 <Select value={} fullWidth onChange={}>
                     

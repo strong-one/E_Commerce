@@ -41,7 +41,7 @@ const Checkout = ({ cart }) => {
     };
 
     generateToken();
-  }, []);
+  }, [cart]);
 
   const Confirmation = () => <div>Confirmation</div>;
 
@@ -52,6 +52,8 @@ const Checkout = ({ cart }) => {
     ) : (
       <PaymentForm />
     );
+
+  // Render jsx => useEffect => Re Render as needed
 
   return (
     <>
@@ -70,8 +72,12 @@ const Checkout = ({ cart }) => {
               </Step>
             ))}
           </Stepper>
-          {/* if on last step  */}
-          {activeStep === steps.length ? <Confirmation /> : <Form />}
+          {/* if on last step, needs checkout token to render form  */}
+          {activeStep === steps.length ? (
+            <Confirmation />
+          ) : (
+            checkoutToken && <Form />
+          )}
         </Paper>
       </main>
     </>
