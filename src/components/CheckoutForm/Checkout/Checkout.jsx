@@ -60,7 +60,7 @@ const Checkout = ({ cart }) => {
     activeStep === 0 ? (
       <AddressForm checkoutToken={checkoutToken} next={next} />
     ) : (
-      <PaymentForm />
+      <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} />
     );
 
   // Render jsx => useEffect => Re Render as needed
