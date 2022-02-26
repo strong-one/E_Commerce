@@ -10,8 +10,9 @@ import {
   CircularProgress,
   Divider,
   Button,
+  CssBaseline,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // import api
 import { commerce } from "../../../lib/commerce";
@@ -28,6 +29,8 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
   const [checkoutToken, setCheckoutToken] = useState(null);
   const [shippingData, setShippingData] = useState({});
   const classes = useStyles();
+  //renavigation automatically after error code executes
+  const history = useHistory();
 
   //   checkout tokens
   useEffect(() => {
@@ -41,6 +44,8 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
         setCheckoutToken(token);
       } catch (error) {
         console.log(error);
+        // go back to homepage during checkout if there is an error
+        history.pushState("/");
       }
     };
 
@@ -66,7 +71,6 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
           </Typography>
           <Divider className={classes.divider} />
           <Typography variant="subtitle2">
-            {" "}
             Order refrence: {order.customer_reference}
           </Typography>
         </div>
@@ -111,6 +115,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
 
   return (
     <>
+      <CssBaseline />
       <div className={classes.toolbar} />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
