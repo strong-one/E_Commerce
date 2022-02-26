@@ -5,7 +5,6 @@ const Review = ({ checkoutToken }) => {
   return (
     <>
       <Typography variant="h6" gutterBottom>
-        {" "}
         Order summary
       </Typography>
       {/* loop through item in cart */}
